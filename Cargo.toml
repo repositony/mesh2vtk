@@ -1,0 +1,28 @@
+[package]
+authors      = ["Tony <repositony@outlook.com>"]
+description  = "Command line tool to convert MCNP meshes to VTK files"
+edition      = "2021"
+keywords     = ["mcnp", "mesh", "vtk"]
+license      = "GPL-3.0 license"
+name         = "mesh2vtk"
+readme       = "readme.md"
+repository   = "https://github.com/repositony/mesh2vtk"
+rust-version = "1.77"
+version      = "1.0.0"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.2", features = ["derive", "wrap_help"] }
+log = "0.4"
+ntools = { git = "https://github.com/repositony/ntools.git", features = [
+    "mesh",
+] }
+stderrlog = "0.6"
+vtkio = { git = "https://github.com/elrnv/vtkio.git", rev = "0c14e90" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[[bin]]
+doc  = false
+name = "mesh2vtk"
