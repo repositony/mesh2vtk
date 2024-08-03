@@ -10,10 +10,10 @@ use wrappers::CliVtkFormat;
 use std::path::{Path, PathBuf};
 
 // neutronics toolbox
+use ntools::f;
 use ntools::mesh::reader::MeshtalReader;
 use ntools::mesh::vtk::MeshToVtk;
 use ntools::mesh::{Geometry, Group, Mesh};
-use ntools::utils::f;
 
 // external
 use anyhow::Result;
