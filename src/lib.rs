@@ -10,10 +10,10 @@ use wrappers::CliVtkFormat;
 use std::path::{Path, PathBuf};
 
 // neutronics toolbox
-use ntools::format::f;
 use ntools::mesh::reader::MeshtalReader;
 use ntools::mesh::vtk::MeshToVtk;
 use ntools::mesh::{Geometry, Group, Mesh};
+use ntools::utils::f;
 
 // external
 use anyhow::Result;
@@ -21,13 +21,11 @@ use log::{debug, info, trace, warn};
 
 /// Sets up logging at runtime to allow for multiple verbosity levels
 pub fn init_logging(cli: &Cli) -> Result<()> {
-    let show_level = if cli.verbose > 0 { true } else { false };
-
     Ok(stderrlog::new()
         .module(module_path!())
         .quiet(cli.quiet)
         .verbosity(cli.verbose as usize + 2)
-        .show_level(show_level)
+        .show_level(cli.verbose > 0)
         .color(stderrlog::ColorChoice::Auto)
         .timestamp(stderrlog::Timestamp::Off)
         .init()?)
