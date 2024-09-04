@@ -16,8 +16,8 @@ use crate::wrappers::{CliByteOrder, CliCompressor, CliVtkFormat};
 ///  Extract only the 'Total' energy and time groups:
 ///     $ mesh2vtk /path/to/file.msht 104 --total
 ///
-///  Include voxel errors in the output:
-///     $ mesh2vtk /path/to/file.msht 104 --errors
+///  Exclude voxel errors in the output:
+///     $ mesh2vtk /path/to/file.msht 104 --no-error
 ///
 ///  Filter energy/time groups by index:
 ///     $ mesh2vtk /path/to/file.msht 104  \
@@ -79,16 +79,16 @@ pub struct Cli {
     /// By default all energy groups are included in the vtk. This equivalent to
     /// passing '--energy total --time total' as arguments.
     #[arg(help_heading("Mesh options"))]
-    #[arg(short, long)]
+    #[arg(long)]
     pub total: bool,
 
-    /// Include errors mesh in output files
+    /// Exclude error mesh from output files
     ///
-    /// Error meshes omitted by default. If enabled, every mesh will have a
-    /// corresponding relative uncertainty dataset (~doubles file size).
+    /// Error meshes are converted by default. The --no-error flag diables this
+    /// behaviour to reduce the file size.
     #[arg(help_heading("Mesh options"))]
-    #[arg(short, long)]
-    pub errors: bool,
+    #[arg(long)]
+    pub no_error: bool,
 
     /// Multiply all results by a constant
     ///
@@ -109,7 +109,7 @@ pub struct Cli {
     /// For filtering by real energy values in MeV rather than group index, use
     /// the --absolute falg.
     #[arg(help_heading("Mesh options"))]
-    #[arg(long)]
+    #[arg(short, long)]
     #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
     #[clap(required = false)]
     #[arg(conflicts_with = "total")]
@@ -125,7 +125,7 @@ pub struct Cli {
     /// For filtering by real time values in shakes rather than group index, use
     /// the --absolute flag.
     #[arg(help_heading("Mesh options"))]
-    #[arg(long)]
+    #[arg(short, long)]
     #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
     #[clap(required = false)]
     #[arg(conflicts_with = "total")]

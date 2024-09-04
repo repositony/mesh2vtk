@@ -1,4 +1,4 @@
-# mesh2vtk
+# MCNP Mesh to VTK conversion (`mesh2vtk`)
 
 Command line tool to convert MCNP mesh tallies to Visual ToolKit (VTK) formats.
 
@@ -17,11 +17,11 @@ Options:
   -h, --help              Print help (see more with '--help')
 
 Mesh options:
-  -t, --total             Only extract 'Total' energy/time groups
-  -e, --errors            Include errors mesh in output files
+      --total             Only extract 'Total' energy/time groups
+  -e, --no-error          Include errors mesh in output files
   -s, --scale <num>       Multiply all results by a constant
-      --energy <list>...  Filter energy group(s)
-      --time <list>...    Filter time group(s)
+  -e  --energy <list>...  Filter energy group(s)
+  -t  --time <list>...    Filter time group(s)
   -a, --absolute          Interpret filter values as MeV/shakes
 
 Vtk options:
@@ -101,15 +101,6 @@ an issue if anyone needs it.
 
 ## Examples
 
-### Including uncertainty meshes
-
-Corresponding uncertainty meshes are optional in case of large meshtal files.
-
-```bash
-# Extract every energy and time group, with corresponding error meshes
-mesh2vtk /path/to/meshtal.msht 104 --errors
-```
-
 ### Only use the 'Total' energy/time groups
 
 Often only the `Total` energy/time bins are of interest, and a quick way of
@@ -118,6 +109,15 @@ only converting this subset is provided.
 ```bash
 # Extract only the 'Total' energy and time groups
 mesh2vtk /path/to/meshtal.msht 104 --total
+```
+
+### Excluding uncertainty meshes
+
+Exclude the uncertainty meshes from the VTK output. This may be desirable for extremely large meshtal files.
+
+```bash
+# Extract every energy and time group, with corresponding error meshes
+mesh2vtk /path/to/meshtal.msht 104 --no-error
 ```
 
 ### Choose specific energy/time groups

@@ -76,12 +76,12 @@ pub fn init_converter(mesh: &Mesh, cli: &Cli) -> MeshToVtk {
         info!("Resolution set to {r}")
     };
 
-    if cli.errors {
-        info!("Including error mesh in VTK")
+    if cli.no_error {
+        info!("Excluding error mesh from VTK")
     }
 
     MeshToVtk::builder()
-        .include_errors(cli.errors)
+        .include_errors(!cli.no_error)
         .byte_order(cli.endian.into())
         .compressor(cli.compressor.into())
         .resolution(cli.resolution.unwrap_or(1))
