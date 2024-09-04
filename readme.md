@@ -12,17 +12,17 @@ Arguments:
   <number>  Mesh tally identifier
 
 Options:
-  -v, --verbose...        Verbose logging (-v, -vv)
-  -q, --quiet             Supress all log output (overrules --verbose)
-  -h, --help              Print help (see more with '--help')
+  -v, --verbose...  Verbose logging (-v, -vv)
+  -q, --quiet       Supress all log output (overrules --verbose)
+  -h, --help        Print help (see more with '--help')
 
 Mesh options:
-      --total             Only extract 'Total' energy/time groups
-  -e, --no-error          Include errors mesh in output files
+  -t, --total             Only extract 'Total' energy/time groups
   -s, --scale <num>       Multiply all results by a constant
-  -e  --energy <list>...  Filter energy group(s)
-  -t  --time <list>...    Filter time group(s)
-  -a, --absolute          Interpret filter values as MeV/shakes
+      --energy <list>...  Filter energy group(s)
+      --time <list>...    Filter time group(s)
+  -a, --absolute          Filter by MeV/shakes rather than index
+      --no-error          Exclude error mesh from output files
 
 Vtk options:
   -o, --output <name>     Name of output file (excl. extension)
