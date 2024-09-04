@@ -79,16 +79,8 @@ pub struct Cli {
     /// By default all energy groups are included in the vtk. This equivalent to
     /// passing '--energy total --time total' as arguments.
     #[arg(help_heading("Mesh options"))]
-    #[arg(long)]
+    #[arg(short, long)]
     pub total: bool,
-
-    /// Exclude error mesh from output files
-    ///
-    /// Error meshes are converted by default. The --no-error flag diables this
-    /// behaviour to reduce the file size.
-    #[arg(help_heading("Mesh options"))]
-    #[arg(long)]
-    pub no_error: bool,
 
     /// Multiply all results by a constant
     ///
@@ -109,7 +101,7 @@ pub struct Cli {
     /// For filtering by real energy values in MeV rather than group index, use
     /// the --absolute falg.
     #[arg(help_heading("Mesh options"))]
-    #[arg(short, long)]
+    #[arg(long)]
     #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
     #[clap(required = false)]
     #[arg(conflicts_with = "total")]
@@ -125,7 +117,7 @@ pub struct Cli {
     /// For filtering by real time values in shakes rather than group index, use
     /// the --absolute flag.
     #[arg(help_heading("Mesh options"))]
-    #[arg(short, long)]
+    #[arg(long)]
     #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
     #[clap(required = false)]
     #[arg(conflicts_with = "total")]
@@ -133,7 +125,7 @@ pub struct Cli {
     #[arg(allow_negative_numbers(true))]
     pub time: Vec<String>,
 
-    /// Interpret filter values as MeV/shakes
+    /// Filter by MeV/shakes rather than index
     ///
     /// By default the values passed to the --energy and --time arguments are
     /// assumed to be group index. This is to avoid any issues resulting from
@@ -145,6 +137,14 @@ pub struct Cli {
     #[arg(help_heading("Mesh options"))]
     #[arg(short, long)]
     pub absolute: bool,
+
+    /// Exclude error mesh from output files
+    ///
+    /// Error meshes are converted by default. The --no-error flag diables this
+    /// behaviour to reduce the file size.
+    #[arg(help_heading("Mesh options"))]
+    #[arg(long)]
+    pub no_error: bool,
 
     /// Name of output file (excl. extension)
     ///
