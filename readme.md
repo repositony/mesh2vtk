@@ -3,8 +3,6 @@
 Command line tool to convert MCNP mesh tallies to Visual ToolKit (VTK) formats.
 
 ```text
-Generalised conversion of meshtal files to visual toolkit formats
-
 Usage: mesh2vtk <file> <id> [options]
 
 Arguments:
@@ -49,17 +47,26 @@ All executables are under `~/.cargo/bin/`, which should already be in your path
 after installing Rust.
 
 <details>
-  <summary>Click here if you have never used Rust</summary>
+  <summary>Click here if you have never used Rust</summary><br />
 
 If you have never used the Rust programming language, the toolchain is easily
 installed from the [official website](https://www.rust-lang.org/tools/install)
 
+### Unix (Linux/MacOS)
+
+Run the following to download and run `rustup-init.sh`, which will install 
+the Rust toolchain for your platform.
+
 ```shell
-curl https://sh.rustup.rs -sSf | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 This should have added `source $HOME/.cargo/env` to the bash profile, so update
 your environment with `source ~/.bashrc`.
+
+### Windows
+
+On Windows, download and run `rustup-init.exe` from the [official installs](https://www.rust-lang.org/tools/install).
 
 </details>
 
