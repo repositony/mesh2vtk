@@ -103,7 +103,7 @@ fn get_targets(mesh: &Mesh, cli: &Cli) -> (Vec<usize>, Vec<usize>) {
     // simple case of --total flag seen
     if cli.total {
         debug!("Set targeted groups to 'Total' only");
-        return (vec![mesh.ebins() - 1], vec![mesh.tbins() - 1]);
+        return (vec![mesh.n_ebins() - 1], vec![mesh.n_tbins() - 1]);
     }
 
     // then we want to find targeted groups by either index or absolute value
@@ -116,8 +116,8 @@ fn get_targets(mesh: &Mesh, cli: &Cli) -> (Vec<usize>, Vec<usize>) {
 fn parse_as_index(mesh: &Mesh, cli: &Cli) -> (Vec<usize>, Vec<usize>) {
     debug!("Parsing energy/time groups as indicies");
     (
-        index_set(&cli.energy, mesh.ebins() - 1),
-        index_set(&cli.time, mesh.tbins() - 1),
+        index_set(&cli.energy, mesh.n_ebins() - 1),
+        index_set(&cli.time, mesh.n_tbins() - 1),
     )
 }
 
@@ -153,13 +153,13 @@ fn targets_to_usize(targets: &[String]) -> Vec<usize> {
 fn parse_as_absolute(mesh: &Mesh, cli: &Cli) -> (Vec<usize>, Vec<usize>) {
     debug!("Parsing energy/time groups as absolute values");
     let energies = if cli.energy.is_empty() {
-        (0..mesh.ebins()).collect()
+        (0..mesh.n_ebins()).collect()
     } else {
         energy_groups_to_index_set(mesh, &group_set(&cli.energy))
     };
 
     let times = if cli.time.is_empty() {
-        (0..mesh.tbins()).collect()
+        (0..mesh.n_tbins()).collect()
     } else {
         time_groups_to_index_set(mesh, &group_set(&cli.time))
     };
@@ -188,14 +188,14 @@ fn targets_to_group(targets: &[String]) -> Vec<Group> {
 fn energy_groups_to_index_set(mesh: &Mesh, groups: &[Group]) -> Vec<usize> {
     let indicies = groups
         .iter()
-        .filter_map(|group| mesh.find_energy_group_index(*group).ok())
+        .filter_map(|group| mesh.energy_index_from_group(*group).ok())
         .collect::<Vec<usize>>();
 
     // should never happen but you never know
     if indicies.is_empty() {
         warn!("Warning: No valid energy groups");
         warn!("  - Falling back to all groups");
-        (0..mesh.ebins()).collect()
+        (0..mesh.n_ebins()).collect()
     } else {
         indicies
     }
@@ -204,14 +204,14 @@ fn energy_groups_to_index_set(mesh: &Mesh, groups: &[Group]) -> Vec<usize> {
 fn time_groups_to_index_set(mesh: &Mesh, groups: &[Group]) -> Vec<usize> {
     let indicies = groups
         .iter()
-        .filter_map(|group| mesh.find_time_group_index(*group).ok())
+        .filter_map(|group| mesh.time_index_from_group(*group).ok())
         .collect::<Vec<usize>>();
 
     // should never happen but you never know
     if indicies.is_empty() {
         warn!("Warning: No valid time groups");
         warn!("  - Falling back to all groups");
-        (0..mesh.tbins()).collect()
+        (0..mesh.n_tbins()).collect()
     } else {
         indicies
     }

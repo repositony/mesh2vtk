@@ -8,7 +8,7 @@ name         = "mesh2vtk"
 readme       = "readme.md"
 repository   = "https://github.com/repositony/mesh2vtk"
 rust-version = "1.79"
-version      = "1.0.6"
+version      = "1.0.7"
 
 [dependencies]
 anyhow = "1.0.94"
