@@ -1,18 +1,20 @@
 # MCNP Mesh to VTK conversion (`mesh2vtk`)
 
+[![GitHub release](https://img.shields.io/github/v/release/repositony/mesh2vtk?include_prereleases)](https://github.com/repositony/mesh2vtk/releases/latest)
+
 Command line tool to convert MCNP mesh tallies to Visual ToolKit (VTK) formats.
 
 ```text
 Usage: mesh2vtk <file> <id> [options]
 
 Arguments:
-  <file>    Path to input meshtal file
-  <number>  Mesh tally identifier
+  <file>                  Path to input meshtal file
+  <number>                Mesh tally identifier
 
 Options:
-  -v, --verbose...  Verbose logging (-v, -vv)
-  -q, --quiet       Supress all log output (overrules --verbose)
-  -h, --help        Print help (see more with '--help')
+  -v, --verbose...        Verbose logging (-v, -vv)
+  -q, --quiet             Supress all log output (overrules --verbose)
+  -h, --help              Print help (see more with '--help')
 
 Mesh options:
   -t, --total             Only extract 'Total' energy/time groups
@@ -35,41 +37,6 @@ Note: --help shows more information and examples
 Help is printed with the `-h` flag, and `--help` will show default values,
 examples, and any important behaviour.
 
-## Install
-
-Direct from github:
-
-```shell
-cargo install --git https://github.com/repositony/mesh2vtk.git
-```
-
-All executables are under `~/.cargo/bin/`, which should already be in your path
-after installing Rust.
-
-<details>
-  <summary>Click here if you have never used Rust</summary><br />
-
-If you have never used the Rust programming language, the toolchain is easily
-installed from the [official website](https://www.rust-lang.org/tools/install)
-
-### Unix (Linux/MacOS)
-
-Run the following to download and run `rustup-init.sh`, which will install 
-the Rust toolchain for your platform.
-
-```shell
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-This should have added `source $HOME/.cargo/env` to the bash profile, so update
-your environment with `source ~/.bashrc`.
-
-### Windows
-
-On Windows, download and run `rustup-init.exe` from the [official installs](https://www.rust-lang.org/tools/install).
-
-</details>
-
 ## Overview
 
 ### Supported output formats
@@ -88,13 +55,14 @@ user manuals.
 | JK            | Yes        | 2D matrix of J (col) and K (row) data, grouped by I |
 | CUV (UKAEA)   | Yes        | UKAEA Cell-under-Voxel column data                  |
 | NONE          | N/A        | `NONE` or unknown output format                     |
+| XDMF          | No         | On the TODO list                                    |
 
-Once I get my paws on MCNPv6.3 this will be extended to include the new
-COLSCI, CFSCI, and XDMF/HDF5 formats.
+Extension to MCNPv6.3 for the new COLSCI, CFSCI, and XDMF/HDF5 formats is not
+difficult, I just need some time to work on it.
 
 ### Supported mesh geometries
 
-All functionality is fully supported for both rectangular and cylindrical meshes.
+All functionality is fully supported for rectangular and cylindrical meshes.
 
 | Mesh geometry | Supported? | MCNP designators |
 | ------------- | ---------- | ---------------- |
@@ -102,9 +70,47 @@ All functionality is fully supported for both rectangular and cylindrical meshes
 | Cylindrical   | Yes        | cyl, rzt         |
 | Spherical     | No         | sph, rpt         |
 
-Currently spherical meshes are not supported because barely anyone knows
-about them, let alone uses them. They are therefore a low priority, but raise
-an issue if anyone needs it.
+Spherical meshes are not supported because barely anyone knows about them, let
+alone uses them. They are therefore a low priority, but raise an issue if anyone
+needs it.
+
+## Install
+
+### Linux/MacOS
+
+Unpack the relevant executable from the [latest release](https://github.com/repositony/decaydata/releases/latest).
+
+```bash
+# Linux
+tar -xjf mesh2vtk-x86_64-unknown-linux-gnu.tar.xz  # Generic linux
+tar -xjf mesh2vtk-aarch64-unknown-linux-gnu.tar.xz # ARM64 Linux
+
+# MacOS
+tar -xjf mesh2vtk-x86_64-apple-darwin.tar.xz       # Intel macOS
+tar -xjf mesh2vtk-aarch64-apple-darwin.tar.xz      # Apple Silicon macOS
+```
+
+And either run from there or add the executable to your `$PATH`.
+
+```bash
+./mesh2vtk -h
+```
+
+### Windows
+
+Extract `mesh2vtk-x86_64-pc-windows-msvc.zip` from the [latest release](https://github.com/repositony/decaydata/releases/latest).
+
+Navigate to this folder and run from powershell.
+
+```bash
+.\mesh2vtk.exe -h
+```
+
+This may be set as an alias for convenience.
+
+```powershell
+Set-Alias -Name mesh2vtk -Value C:\Path\To\Folder\mesh2vtk.exe
+```
 
 ## Examples
 
@@ -118,9 +124,11 @@ only converting this subset is provided.
 mesh2vtk /path/to/meshtal.msht 104 --total
 ```
 
-### Excluding uncertainty meshes
+### Reduce VTK file size
 
-Exclude the uncertainty meshes from the VTK output. This may be desirable for extremely large meshtal files.
+Excluding uncertainty meshes from output cuts file sizes in half.
+
+This may be desirable for extremely large meshtal files.
 
 ```bash
 # Extract every energy and time group, with corresponding error meshes
@@ -129,8 +137,8 @@ mesh2vtk /path/to/meshtal.msht 104 --no-error
 
 ### Choose specific energy/time groups
 
-If specific energy or time groups are required they can be filtered by group
-index.
+If specific energy or time groups are required they can be filtered **by group
+index**.
 
 ```bash
 # Extract specific energy and time groups by index
@@ -144,7 +152,7 @@ convenience.
 
 Filtering by index avoids the precision issues that accompany the extremely
 limited MCNPv6.2 output formatting. However, if you really want to use absolute
-values in units of MeV and shakes then include the `--absolute` flag.
+values in units of `MeV` and `shakes` then include the `--absolute` flag.
 
 ```bash
 # Extract specific energy and time groups by MeV/shakes values

@@ -7,18 +7,21 @@ license      = "GPL-3.0 license"
 name         = "mesh2vtk"
 readme       = "readme.md"
 repository   = "https://github.com/repositony/mesh2vtk"
-rust-version = "1.79"
-version      = "1.0.7"
+rust-version = "1.81"
+version      = "2.0.0"
 
 [dependencies]
-anyhow = "1.0.94"
-clap = { version = "4.5.23", features = ["derive", "wrap_help"] }
-log = "0.4.22"
-ntools = { git = "https://github.com/repositony/ntools.git", features = [
+# core library, not currently for public use
+ntools = { git = "ssh://git@github.com/repositony/ntools.git", branch = "main", features = [
     "mesh",
 ] }
+
+# external
+anyhow    = "1.0.97"
+clap      = { version = "4.5.31", features = ["derive", "wrap_help"] }
+log       = "0.4.26"
 stderrlog = "0.6.0"
-vtkio = { git = "https://github.com/elrnv/vtkio.git", rev = "2432be9" }
+vtkio     = { git = "https://github.com/elrnv/vtkio.git", rev = "2432be9" }
 
 [lints.rust]
 unsafe_code = "forbid"
@@ -26,3 +29,8 @@ unsafe_code = "forbid"
 [[bin]]
 doc  = false
 name = "mesh2vtk"
+
+[profile.dist]
+allow-dirty = ["ci", "msi"]
+inherits    = "release"
+lto         = "thin"
