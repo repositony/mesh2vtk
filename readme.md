@@ -76,6 +76,8 @@ needs it.
 
 ## Install
 
+Download and unpack the latest binary executable release [here](https://github.com/repositony/mesh2vtk/releases/latest) for running in a terminal/powershell.
+
 ### Linux/MacOS
 
 Unpack the relevant executable from the [latest release](https://github.com/repositony/mesh2vtk/releases/latest).
