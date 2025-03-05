@@ -78,7 +78,7 @@ needs it.
 
 ### Linux/MacOS
 
-Unpack the relevant executable from the [latest release](https://github.com/repositony/decaydata/releases/latest).
+Unpack the relevant executable from the [latest release](https://github.com/repositony/mesh2vtk/releases/latest).
 
 ```bash
 # Linux
@@ -98,7 +98,7 @@ And either run from there or add the executable to your `$PATH`.
 
 ### Windows
 
-Extract `mesh2vtk-x86_64-pc-windows-msvc.zip` from the [latest release](https://github.com/repositony/decaydata/releases/latest).
+Extract `mesh2vtk-x86_64-pc-windows-msvc.zip` from the [latest release](https://github.com/repositony/mesh2vtk/releases/latest).
 
 Navigate to this folder and run from powershell.
 
