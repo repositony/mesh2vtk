@@ -7,10 +7,9 @@ use cli::Cli;
 use wrappers::CliVtkFormat;
 
 // standard
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 // neutronics toolbox
-use ntools::mesh::reader::MeshtalReader;
 use ntools::mesh::vtk::MeshToVtk;
 use ntools::mesh::{Geometry, Group, Mesh};
 use ntools::utils::f;
@@ -33,10 +32,11 @@ pub fn init_logging(cli: &Cli) -> Result<()> {
 
 /// Attempts to read a single targeted mesh from the file
 pub fn try_meshtal_read(cli: &Cli) -> Result<Mesh> {
-    let mut reader = reader(cli);
-    let path: &Path = Path::new(&cli.file);
-    let mut mesh = reader.parse(path)?;
-    Ok(mesh.remove(0))
+    if cli.quiet {
+        Ok(ntools::mesh::read_target(&cli.file, cli.number)?)
+    } else {
+        Ok(ntools::mesh::read_target_pb(&cli.file, cli.number)?)
+    }
 }
 
 /// Sanitise the output given and append the mesh tally id
@@ -88,15 +88,6 @@ pub fn init_converter(mesh: &Mesh, cli: &Cli) -> MeshToVtk {
         .energy_groups(energies)
         .time_groups(times)
         .build()
-}
-
-fn reader(cli: &Cli) -> MeshtalReader {
-    let mut reader = MeshtalReader::new();
-    if cli.quiet {
-        reader.disable_progress();
-    }
-    reader.set_target_id(cli.number);
-    reader
 }
 
 fn get_targets(mesh: &Mesh, cli: &Cli) -> (Vec<usize>, Vec<usize>) {

@@ -48,6 +48,7 @@ user manuals.
 
 | Output format | Supported? | Description                                         |
 | ------------- | ---------- | --------------------------------------------------- |
+| XDMF/HDF5     | Yes        | MCNP >6.3 runtape HDF5 format                       |
 | COL           | Yes        | Column data (MCNP default)                          |
 | CF            | Yes        | Column data including voxel volume                  |
 | IJ            | Yes        | 2D matrix of I (col) and J (row) data, grouped by K |
@@ -55,10 +56,6 @@ user manuals.
 | JK            | Yes        | 2D matrix of J (col) and K (row) data, grouped by I |
 | CUV (UKAEA)   | Yes        | UKAEA Cell-under-Voxel column data                  |
 | NONE          | N/A        | `NONE` or unknown output format                     |
-| XDMF          | No         | On the TODO list                                    |
-
-Extension to MCNPv6.3 for the new COLSCI, CFSCI, and XDMF/HDF5 formats is not
-difficult, I just need some time to work on it.
 
 ### Supported mesh geometries
 
