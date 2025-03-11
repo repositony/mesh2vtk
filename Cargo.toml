@@ -1,18 +1,19 @@
 [package]
 authors      = ["Tony <repositony@outlook.com>"]
 description  = "Command line tool to convert MCNP meshes to VTK files"
-edition      = "2021"
+edition      = "2024"
 keywords     = ["mcnp", "mesh", "vtk"]
 license      = "GPL-3.0 license"
 name         = "mesh2vtk"
 readme       = "readme.md"
 repository   = "https://github.com/repositony/mesh2vtk"
-rust-version = "1.81"
-version      = "2.0.0"
+rust-version = "1.85"
+version      = "2.1.0"
 
 [dependencies]
 # core library, not currently for public use
 ntools = { git = "ssh://git@github.com/repositony/ntools.git", branch = "main", features = [
+    "hdf5",
     "mesh",
 ] }
 
