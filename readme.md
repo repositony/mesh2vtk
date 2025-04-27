@@ -48,7 +48,7 @@ user manuals.
 
 | Output format | Supported? | Description                                         |
 | ------------- | ---------- | --------------------------------------------------- |
-| XDMF/HDF5     | Yes        | MCNP >6.3 runtape HDF5 format                       |
+| XDMF/HDF5     | >2.0.0     | MCNP >6.3 runtape HDF5 format                       |
 | COL           | Yes        | Column data (MCNP default)                          |
 | CF            | Yes        | Column data including voxel volume                  |
 | IJ            | Yes        | 2D matrix of I (col) and J (row) data, grouped by K |
@@ -81,12 +81,12 @@ Unpack the relevant executable from the [latest release](https://github.com/repo
 
 ```bash
 # Linux
-tar -xjf mesh2vtk-x86_64-unknown-linux-gnu.tar.xz  # Generic linux
-tar -xjf mesh2vtk-aarch64-unknown-linux-gnu.tar.xz # ARM64 Linux
+tar -xJf mesh2vtk-x86_64-unknown-linux-gnu.tar.xz  # Generic linux
+tar -xJf mesh2vtk-aarch64-unknown-linux-gnu.tar.xz # ARM64 Linux
 
 # MacOS
-tar -xjf mesh2vtk-x86_64-apple-darwin.tar.xz       # Intel macOS
-tar -xjf mesh2vtk-aarch64-apple-darwin.tar.xz      # Apple Silicon macOS
+tar -xJf mesh2vtk-x86_64-apple-darwin.tar.xz       # Intel macOS
+tar -xJf mesh2vtk-aarch64-apple-darwin.tar.xz      # Apple Silicon macOS
 ```
 
 And either run from there or add the executable to your `$PATH`.
